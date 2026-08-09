@@ -46,7 +46,7 @@ const EventDetails = () => {
   };
 
   const isMember = (committeeType) =>
-    user && committees[committeeType]?.some((m) => m.id === user.id);
+    user && committees[committeeType]?.some((m) => m && m.id === user.id);
 
   const handleJoinCommittee = async (committeeType) => {
     try {
@@ -134,27 +134,30 @@ const EventDetails = () => {
         <h3>Volunteer Committees</h3>
         <p className="committee-intro">Want to help run this event? Join a committee below.</p>
         <div className="committee-grid">
-          {COMMITTEES.map((c) => (
-            <div className="committee-card" key={c.key}>
-              <h4>{c.label}</h4>
-              <p className="committee-blurb">{c.blurb}</p>
-              <p className="committee-count">{committees[c.key]?.length || 0} member(s)</p>
-              {committees[c.key]?.length > 0 && (
-                <ul className="committee-members">
-                  {committees[c.key].map((m) => (
-                    <li key={m.id}>{m.name} <span className="committee-dept">({m.department})</span></li>
-                  ))}
-                </ul>
-              )}
-              {user?.role === "student" && (
-                isMember(c.key) ? (
-                  <button className="btn-outline" onClick={() => handleLeaveCommittee(c.key)}>Leave</button>
-                ) : (
-                  <button className="btn-outline" onClick={() => handleJoinCommittee(c.key)}>Join</button>
-                )
-              )}
-            </div>
-          ))}
+          {COMMITTEES.map((c) => {
+            const members = (committees[c.key] || []).filter((m) => m);
+            return (
+              <div className="committee-card" key={c.key}>
+                <h4>{c.label}</h4>
+                <p className="committee-blurb">{c.blurb}</p>
+                <p className="committee-count">{members.length} member(s)</p>
+                {members.length > 0 && (
+                  <ul className="committee-members">
+                    {members.map((m) => (
+                      <li key={m.id}>{m.name} <span className="committee-dept">({m.department})</span></li>
+                    ))}
+                  </ul>
+                )}
+                {user?.role === "student" && (
+                  isMember(c.key) ? (
+                    <button className="btn-outline" onClick={() => handleLeaveCommittee(c.key)}>Leave</button>
+                  ) : (
+                    <button className="btn-outline" onClick={() => handleJoinCommittee(c.key)}>Join</button>
+                  )
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
