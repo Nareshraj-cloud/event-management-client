@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://event-management-server-70p2.onrender.com/api",
 });
 
 // Attach JWT token to every request if user is logged in
