@@ -10,8 +10,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
 import EventDetails from "./pages/EventDetails";
 import CreateEvent from "./pages/CreateEvent";
 import MyEvents from "./pages/MyEvents";
@@ -37,8 +35,6 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginWithWelcome />} />
       <Route path="/register" element={<RegisterWithWelcome />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/events/:id" element={<EventDetails />} />
